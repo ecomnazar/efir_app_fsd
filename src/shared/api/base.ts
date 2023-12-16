@@ -1,6 +1,5 @@
 import axios, { AxiosError } from "axios";
 import { getToken } from "@/shared/lib/helpers/token";
-import toast from "react-hot-toast";
 
 export const instance = axios.create({
   baseURL: import.meta.env.VITE_BASE_API,

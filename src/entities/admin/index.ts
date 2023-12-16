@@ -1,0 +1,1 @@
+export { adminSlice } from "@/entities/admin/model/slice"
