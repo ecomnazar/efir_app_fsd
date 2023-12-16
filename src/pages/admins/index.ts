@@ -1,0 +1,1 @@
+export { AdminsPage } from "@/pages/admins/ui/Page"

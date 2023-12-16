@@ -1,0 +1,1 @@
+export { AdminCart } from "@/shared/ui/Сart/AdminCart"

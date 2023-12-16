@@ -1,6 +1,6 @@
 import { LoginForm } from "@/features/authentication/login";
 
-const LoginPage = () => {
+export const LoginPage = () => {
   return (
     <section className="w-screen h-screen bg-secondary flex justify-center items-center relative">
       <LoginForm />
@@ -10,5 +10,3 @@ const LoginPage = () => {
     </section>
   );
 };
-
-export default LoginPage;

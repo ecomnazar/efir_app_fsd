@@ -1,3 +1,1 @@
-import LoginPage from "@/pages/login/ui/Page"
-
-export default LoginPage
+export { LoginPage } from "@/pages/login/ui/Page"
