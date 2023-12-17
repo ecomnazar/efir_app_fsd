@@ -1,1 +1,1 @@
-export { adminSlice } from "@/entities/admin/model/slice"
+export * as adminSlice from "@/entities/admin/model/slice"
