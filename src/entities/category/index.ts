@@ -1,0 +1,1 @@
+export * as categorySlice from "@/entities/category/model/slice"
