@@ -16,7 +16,10 @@ export const loginThunk = createAsyncThunk<void, Params, { state: RootState }>(
       const response = await instance.post(API_ENDPOINTS.LOGIN, body);
       const token = response.data.token;
       saveToken(token);
-      window.location.replace("/")
+      toast.success("Вы успешно вошли в систему");
+      setTimeout(() => {
+        window.location.replace("/")
+      }, 1000);
     } catch (error) {
       // if(axios.isAxiosError(error)) {
       //     const serverError = error as AxiosError
