@@ -1,1 +1,1 @@
-export * as adminSlice from "@/entities/admin/model/slice"
+export * as default from "@/entities/admin/model/slice"

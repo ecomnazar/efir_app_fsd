@@ -1,0 +1,1 @@
+export * as default from "@/entities/history/model/slice"

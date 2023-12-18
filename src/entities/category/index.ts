@@ -1,1 +1,1 @@
-export * as categorySlice from "@/entities/category/model/slice"
+export * as default from "@/entities/category/model/slice"

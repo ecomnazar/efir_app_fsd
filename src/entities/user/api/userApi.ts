@@ -3,9 +3,9 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { PUser } from "@/entities/user/api/types"
 import toast from "react-hot-toast";
 
-export const getUsers = createAsyncThunk('user/getUsers', async () => {
+export const getUsers = createAsyncThunk('user/getUsers', async (page: number) => {
     try {
-        const response = await instance.get(`${API_ENDPOINTS.USERS}`)
+        const response = await instance.get(`${API_ENDPOINTS.USERS}?page=${page}&amount=20`)
         return response.data
     } catch(error) {
         return Promise.reject(error)

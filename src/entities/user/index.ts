@@ -1,1 +1,1 @@
-export * as userSlice from "@/entities/user/model/slice"
+export * as default from "@/entities/user/model/slice"
