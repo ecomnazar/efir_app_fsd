@@ -1,6 +1,6 @@
 import React from "react";
-import Loading from "@/shared/ui/Loading";
 import clsx from "clsx";
+import { Loading } from "@/shared/ui/Loading"
 
 type Props = {
   isLoading?: boolean;

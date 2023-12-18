@@ -9,6 +9,7 @@ const channelSlice = createSlice({
       data: [] as GChannel[],
       loading: false,
       error: false,
+      next: true
     },
   },
   reducers: {},
@@ -22,9 +23,10 @@ const channelSlice = createSlice({
       })
       .addCase(
         getChannels.fulfilled,
-        (state, action: PayloadAction<GChannel[]>) => {
-          state.channels.data = action.payload;
+        (state, action: PayloadAction<{ next: string, results: GChannel[] }>) => {
+          state.channels.data = action.payload.results;
           state.channels.loading = false;
+          state.channels.next = action.payload.next ? true : false
         }
       )
       .addCase(getChannels.rejected, (state) => {

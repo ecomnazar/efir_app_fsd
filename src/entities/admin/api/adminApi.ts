@@ -7,8 +7,8 @@ import toast from "react-hot-toast";
 
 export const getAdmins = createAsyncThunk('admin/getAdmins', async () => {
     try {
-        const response = await instance.get(`${API_ENDPOINTS.ADMINS}`)
-        return response.data
+        const response = await instance.get(`${API_ENDPOINTS.ADMINS}?page=1&amount=30`)
+        return response.data.results
     } catch (error) {
         return Promise.reject(error)
     }
