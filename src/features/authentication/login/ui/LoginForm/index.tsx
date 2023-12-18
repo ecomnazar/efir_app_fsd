@@ -7,18 +7,18 @@ import { loginThunk } from "../../model/login";
 import Button from "@/shared/ui/Button";
 import Input from "@/shared/ui/Input";
 
-type Inputs = {
+type FormProps = {
   username: string;
   password: string;
 };
 
 export const LoginForm = () => {
   const dispatch = useAppDispatch();
-  const { handleSubmit, register } = useForm<Inputs>();
+  const { handleSubmit, register } = useForm<FormProps>();
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
   const onSubmitHandler = React.useCallback(
-    async ({ username, password }: Inputs) => {
+    async ({ username, password }: FormProps) => {
       setIsLoading(true);
       await dispatch(loginThunk({ username, password }));
       setIsLoading(false);
@@ -37,6 +37,7 @@ export const LoginForm = () => {
           <RiLock2Line className="text-lg" />
           <p>Username:</p>
         </div>
+        
         <Input register={register} name="username" />
       </div>
       <div>

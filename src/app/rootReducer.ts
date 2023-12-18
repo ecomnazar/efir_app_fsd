@@ -3,6 +3,7 @@ import userSlice from "@/entities/user";
 import categorySlice from "@/entities/category"
 import postSlice  from "@/entities/post"
 import historySlice  from "@/entities/history"
+import channelSlice  from "@/entities/channel"
 import { combineReducers } from "@reduxjs/toolkit";
 
 
@@ -11,5 +12,6 @@ export const rootReducer = combineReducers({
     userSlice: userSlice.default,
     categorySlice: categorySlice.default,
     postSlice: postSlice.default,
-    historySlice: historySlice.default
+    historySlice: historySlice.default,
+    channelSlice: channelSlice.default
 })
