@@ -3,7 +3,6 @@ import { useAppDispatch } from "@/shared/lib/hooks/useAppDispatch";
 import { getUsers } from "@/entities/user/api/userApi";
 import { useAppSelector } from "@/shared/lib/hooks/useAppSelector";
 import { PaginationLoading } from "@/shared/ui/loading";
-import { PostCart } from "@/entities/cart";
 import { Link } from "react-router-dom";
 
 export const UsersList = () => {
@@ -23,8 +22,10 @@ export const UsersList = () => {
         {users?.map((user) => {
           return (
             // <PostCart onClick={} type={"image"} content={user.avatar} description={user.username} likes={0} />
-            <Link className="bg-primary" to={`/user/${user.id}`}>
+            <Link key={user.id} className="bg-primary text-white aspect-square rounded-md flex flex-col items-center p-2" to={`/user/${user.id}`}>
+              <img src={user.avatar ? user.avatar : "/images/empty.jpeg"} className="rounded-full object-cover w-[100px] h-[100px] p-1 bg-white" alt="" />
               <h1>{user.username}</h1>
+              <h2>{user.phone_number ? user.phone_number : "Нету номера"}</h2>
             </Link>
           );
         })}

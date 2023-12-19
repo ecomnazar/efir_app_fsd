@@ -7,7 +7,7 @@ export const getCategories = createAsyncThunk(
   "category/getCategories",
   async () => {
     try {
-      const response = await instanceSecond.get(`${API_ENDPOINTS.CATEGORY}`);
+      const response = await instanceSecond.get(`${API_ENDPOINTS.CATEGORY}?page=1&amount=30`);
       return response.data;
     } catch (error) {
       return Promise.reject(error);
@@ -32,7 +32,7 @@ export const updateCategory = createAsyncThunk(
   "category/updateCategory",
   async (data: UCategory) => {
     try {
-      await instanceSecond.put(`${API_ENDPOINTS.CATEGORY}}`, data);
+      await instanceSecond.patch(`${API_ENDPOINTS.CATEGORY}`, data);
       toast.success("Категория успешно обновлена");
     } catch (error) {
       toast.error("Категория не обновлена");

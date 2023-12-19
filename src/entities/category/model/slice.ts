@@ -17,8 +17,8 @@ const categorySlice = createSlice({
             .addCase(getCategories.pending, (state) => {
                 state.categories.loading = true
             })
-            .addCase(getCategories.fulfilled, (state, action: PayloadAction<GCategory[]>) => {
-                state.categories.data = action.payload
+            .addCase(getCategories.fulfilled, (state, action: PayloadAction<{ results: GCategory[] }>) => {
+                state.categories.data = action.payload.results
                 state.categories.loading = false
             })
             .addCase(getCategories.rejected, (state) => {
