@@ -1,5 +1,5 @@
-import Button from "@/shared/ui/Button";
-import Title from "@/shared/ui/Title";
+import Button from "@/shared/ui/button";
+import Title from "@/shared/ui/title";
 import { AdminsList } from "@/widgets/AdminsList";
 
 export const AdminsPage = () => {

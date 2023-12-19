@@ -1,1 +1,1 @@
-export * from "@/entities/cart/ui"
+export * from "@/entities/cart/ui/PostCart"

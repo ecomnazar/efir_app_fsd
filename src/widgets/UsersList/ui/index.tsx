@@ -1,9 +1,10 @@
 import React from "react";
-import { Cart } from "@/entities/cart";
 import { useAppDispatch } from "@/shared/lib/hooks/useAppDispatch";
 import { getUsers } from "@/entities/user/api/userApi";
 import { useAppSelector } from "@/shared/lib/hooks/useAppSelector";
-import { PaginationLoading } from "@/shared/ui/Loading";
+import { PaginationLoading } from "@/shared/ui/loading";
+import { PostCart } from "@/entities/cart";
+import { Link } from "react-router-dom";
 
 export const UsersList = () => {
   const dispatch = useAppDispatch();
@@ -18,15 +19,13 @@ export const UsersList = () => {
 
   return (
     <>
-      <div className="grid grid-cols-3 gap-2 mt-6">
+      <div className="grid grid-cols-6 gap-2 mt-6">
         {users?.map((user) => {
           return (
-            <Cart
-              key={user.id}
-              image={""}
-              name={user.username}
-              number={user.phone_number}
-            />
+            // <PostCart onClick={} type={"image"} content={user.avatar} description={user.username} likes={0} />
+            <Link className="bg-primary" to={`/user/${user.id}`}>
+              <h1>{user.username}</h1>
+            </Link>
           );
         })}
       </div>

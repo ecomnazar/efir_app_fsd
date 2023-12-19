@@ -9,6 +9,7 @@ const postSlice = createSlice({
       data: [] as GPost[],
       loading: false,
       error: false,
+      next: true
     },
     post: {
       data: {} as GPost,
@@ -19,6 +20,7 @@ const postSlice = createSlice({
       data: [] as GPost[],
       loading: false,
       error: false,
+      next: true
     },
   },
   reducers: {},
@@ -30,9 +32,10 @@ const postSlice = createSlice({
       .addCase(getPosts.pending, (state) => {
         state.posts.loading = true;
       })
-      .addCase(getPosts.fulfilled, (state, action: PayloadAction<GPost[]>) => {
-        state.posts.data = action.payload;
+      .addCase(getPosts.fulfilled, (state, action: PayloadAction<{next: string, results: GPost[]}>) => {
+        state.posts.data = [...state.posts.data, ...action.payload.results];
         state.posts.loading = false;
+        state.posts.next = action.payload.next ? true : false
       })
       .addCase(getPosts.rejected, (state) => {
         state.posts.error = true;
@@ -56,8 +59,9 @@ const postSlice = createSlice({
       .addCase(getUserPosts.pending, (state) => {
         state.userPosts.loading = true;
       })
-      .addCase(getUserPosts.fulfilled, (state, action: PayloadAction<GPost[]>) => {
-        state.userPosts.data = action.payload;
+      .addCase(getUserPosts.fulfilled, (state, action: PayloadAction<{ next: string, results: GPost[] }>) => {
+        state.userPosts.data = action.payload.results;
+        state.userPosts.next = action.payload.next ? true : false
         state.userPosts.loading = false;
       })
       .addCase(getUserPosts.rejected, (state) => {

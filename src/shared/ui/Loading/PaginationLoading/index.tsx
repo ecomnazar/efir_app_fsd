@@ -1,5 +1,5 @@
 import { InView } from "react-intersection-observer";
-import { Loading } from "@/shared/ui/Loading"
+import { Loading } from "@/shared/ui/loading"
 
 type Props = {
     hasNext: boolean;

@@ -9,6 +9,7 @@ import { CategoriesPage } from "@/pages/categories";
 import { ChannelsPage } from "@/pages/channels";
 import { AdminsPage } from "@/pages/admins";
 import PrivateRoutes from "@/shared/lib/helpers/PrivateRoutes";
+import { UserPage } from "@/pages/user";
 
 const appRouter = () =>
   createBrowserRouter([
@@ -29,6 +30,10 @@ const appRouter = () =>
             {
               path: "/users",
               element: <UsersPage />,
+            },
+            {
+              path: '/user/:id',
+              element: <UserPage />
             },
             {
               path: "/history",

@@ -1,9 +1,9 @@
 import React from "react";
-import { Cart } from "@/entities/cart";
+// import { Cart } from "@/entities/cart";
 import { useAppDispatch } from "@/shared/lib/hooks/useAppDispatch";
 import { useAppSelector } from "@/shared/lib/hooks/useAppSelector";
 import { getChannels } from "@/entities/channel/api/channelApi";
-import { PaginationLoading } from "@/shared/ui/Loading";
+import { PaginationLoading } from "@/shared/ui/loading";
 
 export const ChannelsList = () => {
   const dispatch = useAppDispatch();
@@ -21,12 +21,13 @@ export const ChannelsList = () => {
       <div className="grid grid-cols-6 gap-2 mt-6">
         {channels?.map((channel) => {
           return (
-            <Cart
-              key={channel.id}
-              image={"/images/image.png"}
-              name={channel.name}
-              number={""}
-            />
+            // <Cart
+            //   key={channel.id}
+            //   image={"/images/image.png"}
+            //   name={channel.name}
+            //   number={""}
+            // />
+            null
           );
         })}
       </div>

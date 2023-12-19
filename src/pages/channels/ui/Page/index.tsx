@@ -1,4 +1,4 @@
-import Title from "@/shared/ui/Title"
+import Title from "@/shared/ui/title"
 import { ChannelsList } from "@/widgets/ChannelsList"
 
 export const ChannelsPage = () => {

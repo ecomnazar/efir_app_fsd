@@ -1,2 +1,2 @@
-export * from "@/shared/ui/Loading/Loading"
-export * from "@/shared/ui/Loading/PaginationLoading"
+export * from "@/shared/ui/loading/Loading"
+export * from "@/shared/ui/loading/PaginationLoading"

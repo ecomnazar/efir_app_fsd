@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 
 export const getPosts = createAsyncThunk('post/getPosts', async (page: number) => {
     try {
-        const response = await instanceSecond.get(`${API_ENDPOINTS.USERS}?page=${page}&amount=20`)
+        const response = await instanceSecond.get(`${API_ENDPOINTS.POSTS}?page=${page}&amount=30`)
         return response.data
     } catch (error) {
         return Promise.reject(error)

@@ -5,7 +5,7 @@ export const BaseLayout = () => {
   return (
     <div>
       <NavigationBar />
-      <main className="w-[calc(100vw-325px)] h-screen overflow-y-auto ml-auto p-4 bg-cream">
+      <main className="w-[calc(100vw-310px)] h-screen overflow-y-auto ml-auto p-4 bg-cream">
         <Outlet />
       </main>
     </div>

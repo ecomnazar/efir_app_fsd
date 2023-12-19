@@ -1,5 +1,5 @@
 import { SearchUsersForm } from "@/features/search";
-import Title from "@/shared/ui/Title";
+import Title from "@/shared/ui/title";
 import { UsersList } from "@/widgets/UsersList";
 
 export const UsersPage = () => {

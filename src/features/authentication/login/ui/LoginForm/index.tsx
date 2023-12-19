@@ -4,8 +4,8 @@ import { useForm } from "react-hook-form";
 import { BiUser } from "react-icons/bi";
 import { RiLock2Line } from "react-icons/ri";
 import { loginThunk } from "../../model/login";
-import Button from "@/shared/ui/Button";
-import Input from "@/shared/ui/Input";
+import Button from "@/shared/ui/button";
+import Input from "@/shared/ui/input";
 
 type FormProps = {
   username: string;
