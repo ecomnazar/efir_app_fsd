@@ -6,7 +6,7 @@ import Button from "@/shared/ui/button";
 import Input from "@/shared/ui/input";
 import Modal from "@/shared/ui/modal";
 import Title from "@/shared/ui/title";
-import { Listbox, Transition } from "@headlessui/react";
+import { Listbox } from "@headlessui/react";
 import React from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
@@ -22,10 +22,14 @@ export const HistoryPage = () => {
   const { register, handleSubmit } = useForm<FormProps>()
   const channels = useAppSelector((state) => state.channelSlice.channels.data)
   const histories = useAppSelector((state) => state.historySlice.histories.data)
-  console.log(histories);
 
+  console.log(histories)
 
-  const [selected, setSelected] = React.useState('Не выбран')
+  React.useEffect(() => {
+    dispatch(getHistories(1))
+  }, [])
+
+  const [selected, setSelected] = React.useState({name: 'Не выбран'})
   
   const onSelectImage = (img: any) => {
     if (img) {
@@ -38,9 +42,9 @@ export const HistoryPage = () => {
 
   const onSubmit: SubmitHandler<FormProps> = (value) => {
     const formData = new FormData()
-    formData.append('type', 'image')
+    formData.append('type', 'video')
     formData.append('link', value.link)
-    formData.append('image', image)
+    formData.append('video', image)
     formData.append('channel', String(selected.id))
     
     dispatch(addHistoryImage(formData))
@@ -53,16 +57,16 @@ export const HistoryPage = () => {
         <Button onClick={() => {
           setIsOpen(true)
           dispatch(getChannels(1))
-        }} height="min">Добавить категорию</Button>
+        }} height="min">Добавить историю</Button>
       </div>
       <div className="grid grid-cols-6 gap-4 mt-6">
-        {Array.from({ length: 40 }).map((elem, i) => {
+        {histories.map((elem, i) => {
           return (
             <div
               key={i}
-              className="bg-primary aspect-[9/16] w-full h-full rounded-md"
+              className="bg-primary aspect-[9/16] w-full h-full rounded-md overflow-hidden"
             >
-              <img src="" alt="" />
+              {elem.type === 'video' ? <video controls src={elem.video}></video> : <img className="object-cover w-full h-full object-center" src={elem.image} alt="" />}
             </div>
           );
         })}
@@ -109,7 +113,7 @@ export const HistoryPage = () => {
 
 
         <input type="file" onChange={(e) => onSelectImage(e.target.files[0])} />
-        <img className="p-1 bg-primary" src={previewImage} alt="" />
+        {/* <img className="p-1 bg-primary" src={previewImage} alt="" /> */}
         <Input register={register} name="link" placeholder="Ссылка на фото" />
         <Button onClick={handleSubmit(onSubmit)} className="mt-2 w-full">Сохранить</Button>
       </Modal>
