@@ -1,39 +1,61 @@
 import React, { ChangeEvent } from "react";
 
 type Props = {
-    setImageUpload: React.Dispatch<any>
-}
+  setImageUpload: React.Dispatch<any>;
+  type: "multiple" | "single";
+};
 
-export const UploaderImage = ({ setImageUpload }: Props) => {
+export const UploaderImage = ({ setImageUpload, type = "single" }: Props) => {
   const [previewImage, setPreviewImage] = React.useState([""]);
+  const inputRef = React.useRef<HTMLInputElement>(null);
 
   const onSelectImage = (e: ChangeEvent<HTMLInputElement>) => {
-      const imageArray = e.target.files
-      const newImagesPreview = []
-      const newImages = []
+    const imageArray = e.target.files;
+    const newImagesPreview = [];
+    const newImages = [];
     if (imageArray) {
-        if (imageArray.length === 1) {
+      if (imageArray.length === 1) {
         setImageUpload(imageArray[0]);
-        setPreviewImage([URL.createObjectURL(imageArray[0])])
+        setPreviewImage([URL.createObjectURL(imageArray[0])]);
       } else {
         for (let i = 0; i < imageArray.length; i++) {
-            newImagesPreview.push(URL.createObjectURL(imageArray[i]))
-            newImages.push(imageArray[i])
+          newImagesPreview.push(URL.createObjectURL(imageArray[i]));
+          newImages.push(imageArray[i]);
         }
-        setImageUpload(newImages)
-        setPreviewImage(newImagesPreview)
+        setImageUpload(newImages);
+        setPreviewImage(newImagesPreview);
       }
     }
   };
 
   return (
     <>
-      <input type="file" multiple onChange={(e) => onSelectImage(e)} />
+      <button
+        onClick={() => {
+          if (inputRef.current) {
+            inputRef.current.click();
+          }
+        }}
+        className="bg-primary text-white h-[40px] w-full rounded-md mb-2"
+      >
+        SELECT FILE
+      </button>
+      <input
+        ref={inputRef}
+        className="hidden"
+        type="file"
+        multiple={type === "multiple" ? true : false}
+        onChange={(e) => onSelectImage(e)}
+      />
       {previewImage && previewImage.length === 1 ? (
-        <><img src={previewImage[0]} /></>
+        <>
+          <img className="mb-2 rounded-md border" src={previewImage[0]} />
+        </>
       ) : (
         previewImage.map((item, i) => {
-          return <img key={i} src={item} alt="" />;
+          return (
+            <img className="mb-2 rounded-md border" key={i} src={item} alt="" />
+          );
         })
       )}
     </>

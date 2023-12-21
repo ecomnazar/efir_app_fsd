@@ -9,8 +9,8 @@ type Props = {
 
 export const Selector = ({ selected, setSelected, items }: Props) => {
   return (
-    <Listbox value={selected} onChange={setSelected}>
-      <div className="relative mt-1">
+    <Listbox  value={selected} onChange={setSelected}>
+      <div className="relative mb-2">
         <Listbox.Button className="relative w-full cursor-default rounded-lg bg-primary text-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none  sm:text-sm">
           <span className="block truncate">{selected?.name}</span>
         </Listbox.Button>

@@ -25,12 +25,15 @@ export const HistoryPage = () => {
   const { register, handleSubmit } = useForm<FormProps>();
   const channels = useAppSelector((state) => state.channelSlice.channels.data);
   const histories = useAppSelector((state) => state.historySlice.histories.data);
-  const [selected, setSelected] = React.useState({ name: "Не выбран", id: '' });
+  
+  const [selected, setSelected] = React.useState({
+    name: "Выберите категорию",
+    id: "",
+  });
 
   React.useEffect(() => {
     dispatch(getHistories(1));
   }, []);
-
 
   const onSubmit: SubmitHandler<FormProps> = (value) => {
     const formData = new FormData();
@@ -76,8 +79,8 @@ export const HistoryPage = () => {
         })}
       </div>
       <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-        <Selector selected={selected} items={channels} setSelected={setSelected}/>
-        <UploaderImage setImageUpload={setImage} />
+        <Selector selected={selected} items={channels} setSelected={setSelected} />
+        <UploaderImage setImageUpload={setImage} type={"single"} />
         <Input register={register} name="link" placeholder="Ссылка на фото" />
         <Button onClick={handleSubmit(onSubmit)} className="mt-2 w-full">Сохранить</Button>
       </Modal>
