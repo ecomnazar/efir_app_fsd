@@ -16,7 +16,7 @@ export const getHistories = createAsyncThunk('history/getHistories', async (page
 
 // add history image
 
-export const addHistoryImage = createAsyncThunk('history/addHistoryImage', async (data: PHistoryImage) => {
+export const addHistoryImage = createAsyncThunk('history/addHistoryImage', async (data: any) => {
     try {
         await instanceSecond.post(`${API_ENDPOINTS.STORIES}`, data, {
             headers: {
