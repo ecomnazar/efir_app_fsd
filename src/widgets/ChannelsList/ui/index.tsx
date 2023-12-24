@@ -4,6 +4,7 @@ import { useAppDispatch } from "@/shared/lib/hooks/useAppDispatch";
 import { useAppSelector } from "@/shared/lib/hooks/useAppSelector";
 import { getChannels } from "@/entities/channel/api/channelApi";
 import { PaginationLoading } from "@/shared/ui/loading";
+import { Link } from "react-router-dom";
 
 export const ChannelsList = () => {
   const dispatch = useAppDispatch();
@@ -21,13 +22,11 @@ export const ChannelsList = () => {
       <div className="grid grid-cols-6 gap-2 mt-6">
         {channels?.map((channel) => {
           return (
-            // <Cart
-            //   key={channel.id}
-            //   image={"/images/image.png"}
-            //   name={channel.name}
-            //   number={""}
-            // />
-            null
+            <Link key={channel.id} className="bg-primary text-white aspect-square rounded-md flex flex-col justify-center items-center p-2" to={`/channel/${channel.id}`}>
+              <img src={channel.avatar ? channel.avatar : "/images/empty.jpeg"} className="rounded-full object-cover w-[100px] h-[100px] p-1 bg-white" alt="" />
+              <h1>{channel.name}</h1>
+              {/* <h2>{channel.category}</h2> */}
+            </Link>
           );
         })}
       </div>

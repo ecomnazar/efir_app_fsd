@@ -38,7 +38,7 @@ export const getUserPosts = createAsyncThunk('post/getUserPosts', async (id: str
 
 // add post
 
-export const addPost = createAsyncThunk('post/addPost', async (data: PPost) => {
+export const addPost = createAsyncThunk('post/addPost', async (data: PPost | any) => {
     try {
         await instanceSecond.post(`${API_ENDPOINTS.POSTS}`, data, {
             headers: {

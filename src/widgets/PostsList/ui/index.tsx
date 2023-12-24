@@ -1,5 +1,10 @@
 import { PostCart } from "@/entities/cart";
-import { deletePost, getPost, getPosts, getUserPosts } from "@/entities/post/api/postApi";
+import {
+  deletePost,
+  getPost,
+  getPosts,
+  getUserPosts,
+} from "@/entities/post/api/postApi";
 import { useAppDispatch } from "@/shared/lib/hooks/useAppDispatch";
 import { useAppSelector } from "@/shared/lib/hooks/useAppSelector";
 import Button from "@/shared/ui/button";
@@ -16,22 +21,23 @@ type Props = {
 
 export const PostsList = ({ cols = 6, type }: Props) => {
   const dispatch = useAppDispatch();
-  const posts = useAppSelector((state) => type === 'all' ? state.postSlice.posts.data : state.postSlice.userPosts.data);
+  const posts = useAppSelector((state) =>
+    type === "all" ? state.postSlice.posts.data : state.postSlice.userPosts.data
+  );
   const post = useAppSelector((state) => state.postSlice.post.data);
   const postLoading = useAppSelector((state) => state.postSlice.post.loading);
   const hasNext = useAppSelector((state) => state.postSlice.posts.next);
-  const userId = useAppSelector((state) => state.userSlice.user.data.id)
+  const userId = useAppSelector((state) => state.userSlice.user.data.id);
   const [isOpenModal, setIsOpenModal] = React.useState(false);
   const [loadingDeleteButton, setLoadingDeleteButton] = React.useState(false);
   const [page, setPage] = React.useState(1);
 
-
   const fetchData = React.useCallback(async () => {
     // await dispatch(type === 'all' ? getPosts(page) : getUserPosts(String(userId)));
-    if(type === 'all') {
-      await dispatch(getPosts(page))
+    if (type === "all") {
+      await dispatch(getPosts(page));
     } else {
-      await dispatch(getUserPosts(userId))
+      await dispatch(getUserPosts(userId));
     }
     setPage((prev) => prev + 1);
   }, [page]);
@@ -66,7 +72,7 @@ export const PostsList = ({ cols = 6, type }: Props) => {
           );
         })}
       </div>
-      <PaginationLoading hasNext={hasNext} onChange={fetchData} />
+      {/* <PaginationLoading hasNext={hasNext} onChange={fetchData} /> */}
       <Modal isOpen={isOpenModal} onClose={() => setIsOpenModal(false)}>
         {post && postLoading ? (
           <div className="h-[200px] relative">
@@ -80,11 +86,16 @@ export const PostsList = ({ cols = 6, type }: Props) => {
             {post.type === "video" ? (
               <video className="w-full" src={post.video} controls />
             ) : (
-              <img
-                className="w-full"
-                src={post.images && post.images[0]}
-                alt=""
-              />
+              post.images.map((elem, i) => {
+                return (
+                  <img
+                    key={i}
+                    className="w-full border border-primary rounded-md mb-2"
+                    src={elem}
+                    alt=""
+                  />
+                );
+              })
             )}
             <Title size="small">Тэги: {post.tags}</Title>
             <Title size="small">Лайки: {post.likes}</Title>

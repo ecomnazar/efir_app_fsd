@@ -1,6 +1,5 @@
 import { getCategories } from "@/entities/category/api/categoryApi";
 import { addChannel } from "@/entities/channel/api/channelApi";
-import { PChannel } from "@/entities/channel/api/types";
 import { Selector } from "@/entities/selector";
 import { useAppDispatch } from "@/shared/lib/hooks/useAppDispatch";
 import { useAppSelector } from "@/shared/lib/hooks/useAppSelector";
@@ -22,6 +21,7 @@ export const ChannelsPage = () => {
   const [image, setImage] = React.useState<File | any>();
   const { register, handleSubmit } = useForm<FormProps>();
   const [isOpen, setIsOpen] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(false)
   const [selected, setSelected] = React.useState({
     name: "Выберите категорию",
     id: "",
@@ -29,11 +29,14 @@ export const ChannelsPage = () => {
   const categories = useAppSelector((state) => state.categorySlice.categories.data);
 
   const onSubmit: SubmitHandler<FormProps> = async (value) => {
+    setIsLoading(true)
     const formData = new FormData()
     formData.append("name", value.name)
     formData.append("avatar", image)
     formData.append("category", selected.id)
     await dispatch(addChannel(formData))
+    setIsOpen(false)
+    setIsLoading(true)
   };
 
   return (
@@ -51,6 +54,7 @@ export const ChannelsPage = () => {
         </Button>
       </div>
       <ChannelsList />
+      
       <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
         <Selector
           selected={selected}
@@ -59,7 +63,7 @@ export const ChannelsPage = () => {
         />
         <UploaderImage setImageUpload={setImage} type={"single"} />
         <Input register={register} name="name" placeholder="Название канала" />
-        <Button onClick={handleSubmit(onSubmit)} className="mt-2 w-full">Сохранить</Button>
+        <Button isLoading={isLoading} onClick={handleSubmit(onSubmit)} className="mt-2 w-full">Сохранить</Button>
       </Modal>
     </section>
   );

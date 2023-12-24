@@ -16,6 +16,8 @@ export const UsersList = () => {
     setPage((prev) => prev + 1);
   }, [page]);
 
+  
+
   return (
     <>
       <div className="grid grid-cols-6 gap-2 mt-6">
