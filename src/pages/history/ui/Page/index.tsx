@@ -27,7 +27,7 @@ export const HistoryPage = () => {
   const histories = useAppSelector((state) => state.historySlice.histories.data);
   
   const [selected, setSelected] = React.useState({
-    name: "Выберите категорию",
+    name: "Выберите канал",
     id: "",
   });
 

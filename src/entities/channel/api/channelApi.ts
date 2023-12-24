@@ -23,7 +23,7 @@ export const getChannels = createAsyncThunk(
 
 export const addChannel = createAsyncThunk(
   "channel/addChannel",
-  async (data: PChannel) => {
+  async (data: PChannel | any) => {
     try {
       await instanceSecond.post(`${API_ENDPOINTS.CHANNEL}`, data, {
         headers: {
