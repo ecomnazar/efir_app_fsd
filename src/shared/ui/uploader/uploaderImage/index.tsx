@@ -3,9 +3,10 @@ import React, { ChangeEvent } from "react";
 type Props = {
   setImageUpload: React.Dispatch<any>;
   type: "multiple" | "single";
+  contentType?: 'video' | 'image';
 };
 
-export const UploaderImage = ({ setImageUpload, type = "single" }: Props) => {
+export const UploaderImage = ({ setImageUpload, type = "single", contentType='image' }: Props) => {
   const [previewImage, setPreviewImage] = React.useState([""]);
   const inputRef = React.useRef<HTMLInputElement>(null);
 
@@ -47,7 +48,7 @@ export const UploaderImage = ({ setImageUpload, type = "single" }: Props) => {
         multiple={type === "multiple" ? true : false}
         onChange={(e) => onSelectImage(e)}
       />
-      {previewImage && previewImage.length === 1 ? (
+      {contentType === 'image' ? previewImage && previewImage.length === 1 ? (
         <>
           <img className="mb-2 rounded-md border" src={previewImage[0]} />
         </>
@@ -57,7 +58,13 @@ export const UploaderImage = ({ setImageUpload, type = "single" }: Props) => {
             <img className="mb-2 rounded-md border" key={i} src={item} alt="" />
           );
         })
-      )}
+      ) : previewImage.length === 1 ? <>
+        <video className="mb-2 rounded-md border" src={previewImage[0]} controls />
+      </> : previewImage.map((item, i) => {
+        return (
+          <video className="mb-2 rounded-md border" key={i} src={item} controls />
+        );
+      })}
     </>
   );
 };

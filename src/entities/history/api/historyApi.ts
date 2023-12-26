@@ -33,14 +33,15 @@ export const addHistoryImage = createAsyncThunk('history/addHistoryImage', async
 
 // add history video
 
-export const addHistoryVideo = createAsyncThunk('history/addHistoryVideo', async (data: PHistoryVideo) => {
+export const addHistoryVideo = createAsyncThunk('history/addHistoryVideo', async (data: PHistoryVideo | any) => {
     try {
-        await instanceSecond.post(`${API_ENDPOINTS.STORIES}`, data, {
+        const response = await instanceSecond.post(`${API_ENDPOINTS.STORIES}`, data, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
         })
-        toast.error('Видео успешнло добавлено')
+        toast.success('Видео успешно добавлено')
+        return response.data
     } catch (error) {
         toast.error('Видео не добавлено')
         return Promise.reject(error)

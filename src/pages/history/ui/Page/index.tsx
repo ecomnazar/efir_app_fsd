@@ -1,49 +1,23 @@
 import { getChannels } from "@/entities/channel/api/channelApi";
-import {
-  addHistoryImage,
-  getHistories,
-} from "@/entities/history/api/historyApi";
-import { Selector } from "@/entities/selector";
+import { HistoryImageUpload, HistoryVideoUpload } from "@/entities/history";
+import { getHistories } from "@/entities/history/api/historyApi";
 import { useAppDispatch } from "@/shared/lib/hooks/useAppDispatch";
 import { useAppSelector } from "@/shared/lib/hooks/useAppSelector";
 import Button from "@/shared/ui/button";
-import Input from "@/shared/ui/input";
 import Modal from "@/shared/ui/modal";
 import Title from "@/shared/ui/title";
-import { UploaderImage } from "@/shared/ui/uploader";
 import React from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
-
-type FormProps = {
-  link: string;
-};
 
 export const HistoryPage = () => {
   const dispatch = useAppDispatch();
   const [isOpen, setIsOpen] = React.useState(false);
-  const [image, setImage] = React.useState<File | any>();
-  const { register, handleSubmit } = useForm<FormProps>();
-  const channels = useAppSelector((state) => state.channelSlice.channels.data);
-  const histories = useAppSelector((state) => state.historySlice.histories.data);
-  
-  const [selected, setSelected] = React.useState({
-    name: "Выберите канал",
-    id: "",
-  });
+  const histories = useAppSelector(
+    (state) => state.historySlice.histories.data
+  );
 
   React.useEffect(() => {
     dispatch(getHistories(1));
   }, []);
-
-  const onSubmit: SubmitHandler<FormProps> = (value) => {
-    const formData = new FormData();
-    formData.append("type", "image");
-    formData.append("link", value.link);
-    formData.append("image", image);
-    formData.append("channel", String(selected.id));
-    dispatch(addHistoryImage(formData));
-    setIsOpen(false)
-  };
 
   return (
     <section className="text-primary">
@@ -80,10 +54,10 @@ export const HistoryPage = () => {
         })}
       </div>
       <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-        <Selector selected={selected} items={channels} setSelected={setSelected} />
-        <UploaderImage setImageUpload={setImage} type={"single"} />
-        <Input register={register} name="link" placeholder="Ссылка на фото" />
-        <Button onClick={handleSubmit(onSubmit)} className="mt-2 w-full">Сохранить</Button>
+        <div className="flex overflow-x-auto">
+          <HistoryImageUpload setIsOpen={setIsOpen} />
+          <HistoryVideoUpload setIsOpen={setIsOpen} />
+        </div>
       </Modal>
     </section>
   );

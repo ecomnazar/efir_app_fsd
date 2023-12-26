@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { addHistoryImage, getHistories } from "@/entities/history/api/historyApi"
+import { addHistoryImage, addHistoryVideo, getHistories } from "@/entities/history/api/historyApi"
 import { GHistory } from "@/entities/history/model/types"
 
 const historySlice = createSlice({
@@ -31,11 +31,18 @@ const historySlice = createSlice({
                 state.histories.error = true
             })
 
-            // add history
+            // add history image
             
             .addCase(addHistoryImage.fulfilled, (state, action: PayloadAction<GHistory>) => {
                 state.histories.data = [...state.histories.data, action.payload]
             })
+
+            // add history video
+
+            .addCase(addHistoryVideo.fulfilled, (state, action: PayloadAction<GHistory>) => {
+                state.histories.data = [action.payload, ...state.histories.data]
+            })
+
     },
 })
 
