@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { getChannels } from "@/entities/channel/api/channelApi";
+import { addChannel, getChannels } from "@/entities/channel/api/channelApi";
 import { GChannel } from "@/entities/channel/model/types";
 
 const channelSlice = createSlice({
@@ -31,7 +31,14 @@ const channelSlice = createSlice({
       )
       .addCase(getChannels.rejected, (state) => {
         state.channels.error = true;
-      });
+      })
+
+      // add channel
+
+      .addCase(addChannel.fulfilled, (state, action: PayloadAction<GChannel>) => {
+        state.channels.data = [...state.channels.data, action.payload]
+      })
+
   },
 });
 

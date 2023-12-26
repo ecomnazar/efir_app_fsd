@@ -19,8 +19,9 @@ export const addCategory = createAsyncThunk(
   "category/addCategory",
   async (name: string) => {
     try {
-      await instanceSecond.post(`${API_ENDPOINTS.CATEGORY}`, { name });
+      const response = await instanceSecond.post(`${API_ENDPOINTS.CATEGORY}`, { name });
       toast.success("Категория успешно добавлена");
+      return response.data
     } catch (error) {
       toast.error("Категория не добавлена");
       return Promise.reject(error);
@@ -49,6 +50,7 @@ export const deleteCategory = createAsyncThunk(
         data: { id },
       });
       toast.success("Категория успешно удалена");
+      return id
     } catch (error) {
       toast.error("Категория не удалена");
       return Promise.reject(error);

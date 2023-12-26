@@ -18,12 +18,13 @@ export const getHistories = createAsyncThunk('history/getHistories', async (page
 
 export const addHistoryImage = createAsyncThunk('history/addHistoryImage', async (data: any) => {
     try {
-        await instanceSecond.post(`${API_ENDPOINTS.STORIES}`, data, {
+        const response = await instanceSecond.post(`${API_ENDPOINTS.STORIES}`, data, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
         })
         toast.success('Изображение успешнло добавлено')
+        return response.data
     } catch(error) {
         toast.error('Изображение не добавлено')
         return Promise.reject(error)

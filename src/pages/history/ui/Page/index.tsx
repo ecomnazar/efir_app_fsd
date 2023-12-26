@@ -42,6 +42,7 @@ export const HistoryPage = () => {
     formData.append("image", image);
     formData.append("channel", String(selected.id));
     dispatch(addHistoryImage(formData));
+    setIsOpen(false)
   };
 
   return (

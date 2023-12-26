@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { GCategory } from "@/entities/category/model/types"
-import { getCategories } from "@/entities/category/api/categoryApi"
+import { addCategory, deleteCategory, getCategories } from "@/entities/category/api/categoryApi"
 
 const categorySlice = createSlice({
     name: 'categorySlice',
@@ -14,6 +14,9 @@ const categorySlice = createSlice({
     reducers: {},
     extraReducers(builder) {
         builder
+
+            // get categories
+
             .addCase(getCategories.pending, (state) => {
                 state.categories.loading = true
             })
@@ -23,6 +26,19 @@ const categorySlice = createSlice({
             })
             .addCase(getCategories.rejected, (state) => {
                 state.categories.error = true
+            })
+
+            // add category
+
+            .addCase(addCategory.fulfilled, (state, action: PayloadAction<GCategory>) => {
+                state.categories.data = [...state.categories.data, action.payload]
+            })
+
+            // delete category
+
+            .addCase(deleteCategory.fulfilled, (state, action: PayloadAction<string>) => {
+                state.categories.data = state.categories.data.filter((category) => category.id !== action.payload)
+                console.log(action.payload);
             })
     },
 

@@ -25,12 +25,13 @@ export const addChannel = createAsyncThunk(
   "channel/addChannel",
   async (data: PChannel | any) => {
     try {
-      await instanceSecond.post(`${API_ENDPOINTS.CHANNEL}`, data, {
+      const response = await instanceSecond.post(`${API_ENDPOINTS.CHANNEL}`, data, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       });
       toast.success("Канал успешнло добавлен");
+      return response.data
     } catch (error) {
       toast.error("Канал не добавлен");
       return Promise.reject(error);

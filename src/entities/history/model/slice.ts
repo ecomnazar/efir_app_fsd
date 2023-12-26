@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { getHistories } from "@/entities/history/api/historyApi"
+import { addHistoryImage, getHistories } from "@/entities/history/api/historyApi"
 import { GHistory } from "@/entities/history/model/types"
 
 const historySlice = createSlice({
@@ -29,6 +29,12 @@ const historySlice = createSlice({
             })
             .addCase(getHistories.rejected, (state) => {
                 state.histories.error = true
+            })
+
+            // add history
+            
+            .addCase(addHistoryImage.fulfilled, (state, action: PayloadAction<GHistory>) => {
+                state.histories.data = [...state.histories.data, action.payload]
             })
     },
 })

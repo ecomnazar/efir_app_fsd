@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { GAdmin } from "@/entities/admin/model/types"
-import { getAdmins } from "@/entities/admin/api/adminApi"
+import { addAdmin, getAdmins } from "@/entities/admin/api/adminApi"
 
 const adminSlice = createSlice({
     name: "adminSlice",
@@ -34,6 +34,13 @@ const adminSlice = createSlice({
             })
 
             // get admin by id
+
+            // add admin
+
+            .addCase(addAdmin.fulfilled, (state, action: PayloadAction<GAdmin>) => {
+                state.admins.data = [...state.admins.data, action.payload]
+            })
+
     },
     
 })

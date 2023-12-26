@@ -36,7 +36,7 @@ export const ChannelsPage = () => {
     formData.append("category", selected.id)
     await dispatch(addChannel(formData))
     setIsOpen(false)
-    setIsLoading(true)
+    setIsLoading(false)
   };
 
   return (

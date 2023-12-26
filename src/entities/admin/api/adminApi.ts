@@ -18,8 +18,10 @@ export const getAdmins = createAsyncThunk('admin/getAdmins', async () => {
 
 export const addAdmin = createAsyncThunk('admin/addAdmin', async (data: PAdmin) => {
     try {
-        await instance.post(`${API_ENDPOINTS.ADMINS}`, data)
+        const response = await instance.post(`${API_ENDPOINTS.ADMINS}`, data)
         toast.success('Админ успешнло добавлен')
+        console.log(response.data)
+        return response.data
     } catch (error) {
         toast.error('Админ не добавлен')
         return Promise.reject(error)

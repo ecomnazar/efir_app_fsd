@@ -42,6 +42,7 @@ export const PostsList = ({ cols = 6, type }: Props) => {
     setPage((prev) => prev + 1);
   }, [page]);
 
+
   const handleClick = (id: string) => {
     dispatch(getPost(id));
     setIsOpenModal(true);
@@ -86,7 +87,7 @@ export const PostsList = ({ cols = 6, type }: Props) => {
             {post.type === "video" ? (
               <video className="w-full" src={post.video} controls />
             ) : (
-              post.images.map((elem, i) => {
+              post?.images?.map((elem, i) => {
                 return (
                   <img
                     key={i}
