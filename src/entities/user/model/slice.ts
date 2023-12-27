@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { GUser } from "@/entities/user/model/types"
-import { getUsers, getUser } from "@/entities/user/api/userApi"
+import { getUsers, getUser, getUsersAsChannel } from "@/entities/user/api/userApi"
 
 const userSlice = createSlice({
     name: "userSlice",
@@ -13,6 +13,12 @@ const userSlice = createSlice({
         },
         user: {
             data: {} as GUser,
+            loading: false,
+            error: false
+        },
+        usersAsChannel: {
+            data: [] as GUser[],
+            next: true,
             loading: false,
             error: false
         }
@@ -47,6 +53,21 @@ const userSlice = createSlice({
             })
             .addCase(getUser.rejected, (state) => {
                 state.user.error = true
+            })
+
+            // get users as channel
+
+            .addCase(getUsersAsChannel.pending, (state) => {
+                state.usersAsChannel.loading = true
+            })
+            .addCase(getUsersAsChannel.fulfilled, (state, action: PayloadAction<{ next: string, results: GUser[] }>) => {
+                state.usersAsChannel.data = [...state.usersAsChannel.data, ...action.payload.results]
+                state.usersAsChannel.loading = false
+                state.usersAsChannel.next = action.payload.next ? true : false
+            })
+            .addCase(getUsersAsChannel.pending, (state) => {
+                state.usersAsChannel.loading = false
+                state.usersAsChannel.error = true
             })
 
     },

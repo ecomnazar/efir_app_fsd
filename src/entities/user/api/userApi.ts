@@ -12,6 +12,15 @@ export const getUsers = createAsyncThunk('user/getUsers', async (page: number) =
     }
 })
 
+export const getUsersAsChannel = createAsyncThunk('user/getUsersAsChannel', async (page: number) => {
+    try {
+        const response = await instance.get(`${API_ENDPOINTS.USERS}?is_channel=True&page=${page}&amount=20`)
+        return response.data
+    } catch(error) {
+        return Promise.reject(error)
+    }
+})
+
 export const getUser = createAsyncThunk('user/getUser', async (id: string) => {
     try {
         const response = await instance.get(`${API_ENDPOINTS.USER}/${id}`)
@@ -21,7 +30,7 @@ export const getUser = createAsyncThunk('user/getUser', async (id: string) => {
     }
 })
 
-export const addUser = createAsyncThunk('user/addUser', async (data: PUser) => {
+export const addUser = createAsyncThunk('user/addUser', async (data: PUser | any) => {
     try {
         await instance.post(`${API_ENDPOINTS.USERS}`, data)
         toast.success('Пользователь успешно добавлен')

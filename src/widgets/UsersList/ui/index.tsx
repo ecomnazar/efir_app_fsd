@@ -16,6 +16,7 @@ export const UsersList = () => {
     setPage((prev) => prev + 1);
   }, [page]);
 
+  console.log(users);
   
 
   return (
