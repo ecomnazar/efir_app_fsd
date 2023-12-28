@@ -54,9 +54,6 @@ export const PostsList = ({ cols = 6, type }: Props) => {
     setIsOpenModal(false);
   };
 
-  console.log(posts);
-  
-
   return (
     <>
       {posts.length !== 0 ? 
@@ -68,7 +65,7 @@ export const PostsList = ({ cols = 6, type }: Props) => {
             description={post.description}
             likes={post.likes}
             content={
-              post.type === "video" ? String(post.thumbnail) : post.images[0]
+              post.type === "video" ? String(post.thumbnail || post.video) : post.images[0]
             }
             type={post.type!}
             onClick={() => handleClick(post.id)}

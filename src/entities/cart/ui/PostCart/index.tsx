@@ -13,10 +13,10 @@ export const PostCart = ({ type, content, onClick, contentLength }: Props) => {
       <div className="aspect-square bg-primary rounded-md overflow-hidden relative">
          {contentLength !== 0 && <div className="absolute top-0 left-0 w-[30px] h-[30px] bg-primary bg-opacity-80 text-white flex items-center justify-center rounded-br-md">{contentLength}</div>}
         {type === "video" ? (
-          <img
+          <video
             className="w-full h-full object-cover object-center"
             src={content}
-          ></img>
+          ></video>
         ) : (
           <img
             className="w-full h-full object-cover object-center"
