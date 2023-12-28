@@ -42,6 +42,9 @@ export const PostsList = ({ cols = 6, type }: Props) => {
     setPage((prev) => prev + 1);
   }, [page]);
 
+  console.log(posts);
+  
+
   const handleClick = (id: string) => {
     dispatch(getPost(id));
     setIsOpenModal(true);
@@ -53,28 +56,34 @@ export const PostsList = ({ cols = 6, type }: Props) => {
     setLoadingDeleteButton(false);
     setIsOpenModal(false);
   };
-
+  
   return (
     <>
-      {posts.length !== 0 ? 
-      <div className={`grid grid-cols-${cols} gap-2 mt-6`}>
-        {posts?.map((post) => {
-          return (
-            <PostCart
-            key={post.id}
-            description={post.description}
-            likes={post.likes}
-            content={
-              post.type === "video" ? String(post.thumbnail || post.video) : post.images[0]
-            }
-            type={post.type!}
-            onClick={() => handleClick(post.id)}
-            contentLength={post.images.length >= 2 ? post.images.length : 0}
-            />
+      {posts.length !== 0 ? (
+        <div className={`grid grid-cols-${cols} gap-2 mt-6`}>
+          {posts?.map((post) => {
+            return (
+              <PostCart
+                key={post.id}
+                description={post.description}
+                likes={post.likes}
+                content={
+                  post.type === "video"
+                    ? String(post.thumbnail || post.video)
+                    : post.images[0]
+                }
+                type={post.type!}
+                onClick={() => handleClick(post.id)}
+                contentLength={post.images.length >= 2 ? post.images.length : 0}
+              />
             );
           })}
-      </div> : <h1 className="text-primary absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-xl font-medium">Нету постов</h1>
-        }
+        </div>
+      ) : (
+        <h1 className="text-primary absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-xl font-medium">
+          Нету постов
+        </h1>
+      )}
       {/* <PaginationLoading hasNext={hasNext} onChange={fetchData} /> */}
       <Modal isOpen={isOpenModal} onClose={() => setIsOpenModal(false)}>
         {post && postLoading ? (
@@ -86,20 +95,22 @@ export const PostsList = ({ cols = 6, type }: Props) => {
             <Title className="mb-4">
               {post.description ? post.description : "Нету описания"}
             </Title>
-            {post.type === "video" ? (
-              <video className="w-full" src={post.video} controls />
-            ) : (
-              post?.images?.map((elem, i) => {
-                return (
-                  <img
-                    key={i}
-                    className="w-full border border-primary rounded-md mb-2"
-                    src={elem}
-                    alt=""
-                  />
-                );
-              })
-            )}
+            <div className="flex overflow-x-scroll">
+              {post.type === "video" ? (
+                <video className="w-full" src={post.video} controls />
+              ) : (
+                post?.images?.map((elem, i) => {
+                  return (
+                    <img
+                      key={i}
+                      className="w-full min-w-full border border-primary min-h-full h-full rounded-md mb-2 p-2 overflow-hidden"
+                      src={elem}
+                      alt=""
+                    />
+                  );
+                })
+              )}
+            </div>
             <Title size="small">Тэги: {post.tags}</Title>
             <Title size="small">Лайки: {post.likes}</Title>
             <Button

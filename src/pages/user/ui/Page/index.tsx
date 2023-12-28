@@ -67,8 +67,8 @@ export const UserPage = () => {
           </div>
         </>
       )}
-      <AddImagePostModal isOpen={isOpenImageUploadModal} setIsOpen={setIsOpenImageUploadModal} />
       <AddVideoPostModal isOpen={isOpenVideoUploadModal} setIsOpen={setIsOpenVideoUploadModal} />
+      <AddImagePostModal isOpen={isOpenImageUploadModal} setIsOpen={setIsOpenImageUploadModal} />
     </div>
   );
 };

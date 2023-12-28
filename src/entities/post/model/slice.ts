@@ -34,6 +34,7 @@ const postSlice = createSlice({
       })
       .addCase(getPosts.fulfilled, (state, action: PayloadAction<{next: string, results: GPost[]}>) => {
         state.posts.data = [...state.posts.data, ...action.payload.results];
+        // state.posts.data = action.payload.results
         state.posts.loading = false;
         state.posts.next = action.payload.next ? true : false
       })

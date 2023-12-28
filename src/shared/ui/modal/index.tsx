@@ -34,7 +34,7 @@ const Modal = ({ isOpen, onClose, children }: Props) => {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="w-full max-w-md max-h-[600px] transform overflow-y-scroll rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+              <Dialog.Panel className="w-full max-w-md max-h-[600px] transform overflow-y-scroll overflow-x-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                 {children}
               </Dialog.Panel>
             </Transition.Child>
