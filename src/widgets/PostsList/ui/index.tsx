@@ -54,25 +54,30 @@ export const PostsList = ({ cols = 6, type }: Props) => {
     setIsOpenModal(false);
   };
 
+  console.log(posts);
+  
+
   return (
     <>
+      {posts.length !== 0 ? 
       <div className={`grid grid-cols-${cols} gap-2 mt-6`}>
         {posts?.map((post) => {
           return (
             <PostCart
-              key={post.id}
-              description={post.description}
-              likes={post.likes}
-              content={
-                post.type === "video" ? String(post.thumbnail) : post.images[0]
-              }
-              type={post.type!}
-              onClick={() => handleClick(post.id)}
-              contentLength={post.images.length >= 2 ? post.images.length : 0}
+            key={post.id}
+            description={post.description}
+            likes={post.likes}
+            content={
+              post.type === "video" ? String(post.thumbnail) : post.images[0]
+            }
+            type={post.type!}
+            onClick={() => handleClick(post.id)}
+            contentLength={post.images.length >= 2 ? post.images.length : 0}
             />
-          );
-        })}
-      </div>
+            );
+          })}
+      </div> : <h1 className="text-primary absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-xl font-medium">Нету постов</h1>
+        }
       {/* <PaginationLoading hasNext={hasNext} onChange={fetchData} /> */}
       <Modal isOpen={isOpenModal} onClose={() => setIsOpenModal(false)}>
         {post && postLoading ? (

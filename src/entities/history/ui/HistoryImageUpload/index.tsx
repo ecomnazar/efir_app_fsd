@@ -7,6 +7,7 @@ import { UploaderImage } from "@/shared/ui/uploader";
 import React from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { addHistoryImage } from "../../api/historyApi";
+import toast from "react-hot-toast";
 
 type FormProps = {
   link: string;
@@ -29,15 +30,23 @@ export const HistoryImageUpload = ({ setIsOpen }: Props) => {
   const channels = useAppSelector((state) => state.channelSlice.channels.data);
 
   const onSubmit: SubmitHandler<FormProps> = async (value) => {
-    setIsLoading(true);
     const formData = new FormData();
     formData.append("type", "image");
     formData.append("link", value.link);
     formData.append("image", image);
     formData.append("channel", String(selected.id));
-    await dispatch(addHistoryImage(formData));
-    setIsOpen(false);
-    setIsLoading(false);
+    if (selected.id) {
+      if (image === undefined || image.length === 0) {
+        toast.error("Выберите изображение");
+      } else {
+        setIsLoading(true);
+        await dispatch(addHistoryImage(formData));
+        setIsOpen(false);
+        setIsLoading(false);
+      }
+    } else {
+      toast.error("Выберите канал");
+    }
   };
 
   return (

@@ -4,9 +4,10 @@ type Props = {
   setImageUpload: React.Dispatch<any>;
   type: "multiple" | "single";
   contentType?: 'video' | 'image';
+  onlyImage?: boolean;
 };
 
-export const UploaderImage = ({ setImageUpload, type = "single", contentType='image' }: Props) => {
+export const UploaderImage = ({ setImageUpload, type = "single", contentType='image', onlyImage=true }: Props) => {
   const [previewImage, setPreviewImage] = React.useState([""]);
   const inputRef = React.useRef<HTMLInputElement>(null);
 
@@ -47,6 +48,7 @@ export const UploaderImage = ({ setImageUpload, type = "single", contentType='im
         type="file"
         multiple={type === "multiple" ? true : false}
         onChange={(e) => onSelectImage(e)}
+        accept={onlyImage ? "image/*" : "video/*"}
       />
       {contentType === 'image' ? previewImage && previewImage.length === 1 ? (
         <>
