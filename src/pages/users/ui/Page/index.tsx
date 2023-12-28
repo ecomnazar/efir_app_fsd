@@ -1,6 +1,5 @@
 import { addUser } from "@/entities/user/api/userApi";
 import { SearchUsersForm } from "@/features/search";
-import { API_ENDPOINTS, instance } from "@/shared/api";
 import { useAppDispatch } from "@/shared/lib/hooks/useAppDispatch";
 import Button from "@/shared/ui/button";
 import Input from "@/shared/ui/input";
@@ -30,33 +29,20 @@ export const UsersPage = () => {
 
   const submitHandler: SubmitHandler<FormProps> = async (value) => {
     setButtonLoading(true)
-    // 
 
     const formData = new FormData()
     formData.append('username', value.username)
-    formData.append('region', value.region)
-    formData.append('city', value.city)
+    formData.append('region', '3')
+    formData.append('city', '1')
     formData.append('bio', value.bio)
     formData.append('address', value.address)
     formData.append('is_channel', 'True')
     formData.append('avatar', image)
-    
-    await dispatch(addUser(formData))
 
+    await dispatch(addUser(formData))
     setButtonLoading(false)
     setIsOpen(false)
   }
-
-  React.useEffect(() => {
-    const getData = async () => {
-      const response = await instance.get(`${API_ENDPOINTS.AUTH}/regions`)
-      const response2 = await instance.get(`${API_ENDPOINTS.AUTH}/cities`)
-      console.log(response.data);
-      console.log(response2.data);
-      return response.data
-    }
-    getData()
-  }, [])
 
   return (
     <section className="text-primary">
@@ -70,8 +56,8 @@ export const UsersPage = () => {
       <UsersList />
       <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
         <Input className="mb-2" register={register} name={'username'} placeholder="Имя пользователя" />
-        <Input className="mb-2" register={register} name={'region'} placeholder="Регион" />
-        <Input className="mb-2" register={register} name={'city'} placeholder="Город" />
+        {/* <Input className="mb-2" register={register} name={'region'} placeholder="Регион" /> */}
+        {/* <Input className="mb-2" register={register} name={'city'} placeholder="Город" /> */}
         <Input className="mb-2" register={register} name={'bio'} placeholder="Био" />
         <Input className="mb-2" register={register} name={'address'} placeholder="Адрес" />
         <UploaderImage setImageUpload={setImage} type="single" />

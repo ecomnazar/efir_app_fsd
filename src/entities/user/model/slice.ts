@@ -65,7 +65,7 @@ const userSlice = createSlice({
                 state.usersAsChannel.loading = false
                 state.usersAsChannel.next = action.payload.next ? true : false
             })
-            .addCase(getUsersAsChannel.pending, (state) => {
+            .addCase(getUsersAsChannel.rejected, (state) => {
                 state.usersAsChannel.loading = false
                 state.usersAsChannel.error = true
             })

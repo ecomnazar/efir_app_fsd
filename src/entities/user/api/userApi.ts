@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 
 export const getUsers = createAsyncThunk('user/getUsers', async (page: number) => {
     try {
-        const response = await instance.get(`${API_ENDPOINTS.USERS}?is_channel=True&page=${page}&amount=20`)
+        const response = await instance.get(`${API_ENDPOINTS.USERS}?page=${page}&amount=20`)
         return response.data
     } catch(error) {
         return Promise.reject(error)
@@ -32,10 +32,15 @@ export const getUser = createAsyncThunk('user/getUser', async (id: string) => {
 
 export const addUser = createAsyncThunk('user/addUser', async (data: PUser | any) => {
     try {
-        await instance.post(`${API_ENDPOINTS.USERS}`, data)
+        await instance.post(`${API_ENDPOINTS.USERS}`, data, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
         toast.success('Пользователь успешно добавлен')
     } catch(error) {
         toast.error('Пользователь не добавлен')
+        toast.error('Пользователь с таким именом существует')
         return Promise.reject(error)
     }
 })
