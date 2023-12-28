@@ -11,6 +11,7 @@ export type GPost = {
   tags: string;
   updated_at: string;
   type?: string;
+  thumbnail?: string;
   user: {
     id: string;
     username: string;

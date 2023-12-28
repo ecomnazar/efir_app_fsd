@@ -1,22 +1,22 @@
-import { GoHeartFill } from "react-icons/go";
-
 type Props = {
-  type: "video" | "image";
+  type: string;
   content: string;
   description: string;
   likes: number;
   onClick?: () => void;
+  contentLength?: number;
 };
 
-export const PostCart = ({ type, content, description, likes, onClick }: Props) => {
+export const PostCart = ({ type, content, onClick, contentLength }: Props) => {
   return (
     <div onClick={onClick} className="rounded-md cursor-pointer">
-      <div className="aspect-square bg-primary rounded-md overflow-hidden">
+      <div className="aspect-square bg-primary rounded-md overflow-hidden relative">
+         {contentLength !== 0 && <div className="absolute top-0 left-0 w-[30px] h-[30px] bg-primary bg-opacity-80 text-white flex items-center justify-center rounded-br-md">{contentLength}</div>}
         {type === "video" ? (
-          <video
+          <img
             className="w-full h-full object-cover object-center"
             src={content}
-          ></video>
+          ></img>
         ) : (
           <img
             className="w-full h-full object-cover object-center"

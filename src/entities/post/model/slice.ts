@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { GPost } from "@/entities/post/model/types";
-import { getPosts, getPost, getUserPosts } from "@/entities/post/api/postApi";
+import { getPosts, getPost, getUserPosts, addPost } from "@/entities/post/api/postApi";
 
 const postSlice = createSlice({
   name: "postSlice",
@@ -66,6 +66,12 @@ const postSlice = createSlice({
       })
       .addCase(getUserPosts.rejected, (state) => {
         state.userPosts.error = true;
+      })
+
+      // add post
+
+      .addCase(addPost.fulfilled, (state, action: PayloadAction<GPost>) => {
+        state.userPosts.data = [action.payload, ...state.userPosts.data]
       })
 
   },

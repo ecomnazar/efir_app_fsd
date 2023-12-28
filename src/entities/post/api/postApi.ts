@@ -40,12 +40,13 @@ export const getUserPosts = createAsyncThunk('post/getUserPosts', async (id: str
 
 export const addPost = createAsyncThunk('post/addPost', async (data: PPost | any) => {
     try {
-        await instanceSecond.post(`${API_ENDPOINTS.POSTS}`, data, {
+        const response = await instanceSecond.post(`${API_ENDPOINTS.POSTS}`, data, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
         })
         toast.success('Пост успешнло добавлен')
+        return response.data        
     } catch (error) {
         toast.error('Пост не добавлен')
         return Promise.reject(error)

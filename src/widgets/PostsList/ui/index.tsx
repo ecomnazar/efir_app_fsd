@@ -42,7 +42,6 @@ export const PostsList = ({ cols = 6, type }: Props) => {
     setPage((prev) => prev + 1);
   }, [page]);
 
-
   const handleClick = (id: string) => {
     dispatch(getPost(id));
     setIsOpenModal(true);
@@ -65,10 +64,11 @@ export const PostsList = ({ cols = 6, type }: Props) => {
               description={post.description}
               likes={post.likes}
               content={
-                post.type === "video" ? String(post.video) : post.images[0]
+                post.type === "video" ? String(post.thumbnail) : post.images[0]
               }
-              type={post.type === "video" ? "video" : "image"}
+              type={post.type!}
               onClick={() => handleClick(post.id)}
+              contentLength={post.images.length >= 2 ? post.images.length : 0}
             />
           );
         })}

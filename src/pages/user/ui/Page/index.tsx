@@ -38,9 +38,19 @@ export const UserPage = () => {
     setIsLoading(true)
     const formData = new FormData()
     formData.append("user", id!);
-    for (let index = 0; index < image.length; index++) {
-      formData.append(`image_${index + 1}`, image[index]);
+    
+    // if image array use for loop
+
+    if(Array.isArray(image)){
+      for (let index = 0; index < image.length; index++) {
+        formData.append(`image_${index + 1}`, image[index]);
+      }
+    } else{
+      formData.append("image_1", image);
     }
+
+    //
+
     formData.append("description", value.description)
     formData.append("tags", value.tags)
     formData.append("is_commentable", 'False')
